@@ -9,7 +9,7 @@
 
 
 ### 🧪 Trying the deployed version:
-- 🕵️ username: test  
+- 🕵️ username: tester
 - 🔑 password: letmetest
 
 <ins> <h3> 🚧 The application is not mobile responsive right now. 🚧</h3> </ins>
