@@ -12,6 +12,7 @@
 - 🕵️ username: test  
 - 🔑 password: letmetest
 
+<ins> <h3> 🚧 The application is not mobile responsive right now. 🚧</h3> </ins>
 
 ##### _Made with :_
 
@@ -35,8 +36,6 @@
 - 💬 Room for Messaging or Chatting 
 - 🧭 A fine and easy to understand frontend 
 - 🗄️ Uses PostgreSQL database
----
-🚩 Right now its not mobile friendly
 
 ## 📀 Installation!
 <ins>**💯 _Recommendation : If you are using Windows kindly learn about [WSL](https://ubuntu.com/wsl)_**</ins>
@@ -134,4 +133,4 @@ so we use an offline tool know as [**MailHog**](https://github.com/mailhog/MailH
 
 
 ## 🛸Deployment
-### Soon...
+- [hirethemv2](https://hirethemv2.onrender.com)
