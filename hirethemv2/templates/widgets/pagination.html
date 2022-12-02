@@ -1,0 +1,13 @@
+<div class="container text-center">
+    <span class="step-links">
+    {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}" class="text-decoration-none text-dark badge alert-primary p-3">Previous</a>
+    {% endif %}
+    <span class="current mx-4 my-4">
+    Page {{ page.number }} of {{ page.paginator.num_pages }}
+    </span>
+    {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}" class="text-decoration-none text-dark badge alert-success p-3">Next</a>
+    {% endif %}
+    </span>
+</div>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Hire Them: Blogs {% endblock title%}
+
+{% block content %}
+<header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Welcome to Blog Home!</h1>
+            <p class="lead mb-0">A place to find help.</p>
+        </div>
+    </div>
+</header>
+
+{% if request.user.is_authenticated %}
+<div class="text-center m-4"><a href="{% url 'create_blog' %}" class="btn btn-success">Create a new blog</a></div>
+{% else %}
+<div class="text-center m-4"><a href="{% url 'create_blog' %}" class="btn btn-success disabled">Create a new blog</a></div>
+<div class="alert alert-warning text-center" role="alert">
+    Must be a logged in user to write a nice blog!
+  </div>
+{% endif %}
+{% for blog in all_blogs %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div><small class="text-muted m-2" >
+            <i class="fa fa-user"></i>
+            {{blog.author.first_name}} {{blog.author.last_name }}
+        </small></div>
+        <h2 class="card-title mt-3">{{blog.title}}</h2>
+        <div class="small text-muted mb-3">{{blog.created|timesince}}</div>
+        <a class="btn btn-primary" href="{% url 'detailed_blog' blog.pk %}">Read more →</a>
+    </div>
+</div>
+<br>
+{% endfor %}
+{% include "widgets/base_footer.html" %}
+{% endblock %}

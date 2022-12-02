@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Hire Them: ChatRoom {% endblock title%} 
+{% block content%}
+<div class="container">
+  <div class="d-flex justify-content-sm-between p-5 bg-dark">
+    <h2 class="alert-heading text-white">
+      <i class="fas fa-door-closed"></i>
+      <strong>{{room.name}}</strong>
+    </h2>
+    <div>
+    <h6 class="text-capitalize text-white">
+      Host - <a href="{% url 'users:detail' room.host %}" class="text-decoration-none text-success">@{{room.host.name}}</a>
+    </h6>
+    <p class="mb-0 text-white">Total Participants : {{room.participants.count}}</p>
+  </div>
+  </div>
+    <div class="card">
+      <p class="p-2">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Show Description:
+        </a>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          {{room.description|safe}}
+        </div>
+      </div>
+    </div> 
+</div>
+<hr>
+<div class="container">
+  <h2><i class="fas fa-list"></i> Message Board !</h2>
+  <div class="col-md-12 bg-white">
+    <div class="chat-message">
+      <ul class="chat">
+        {% for message in room_messages %} 
+            {% if message.user == request.user %}
+                <li>
+                    <div class="header">
+                    <strong class="primary-font m-3">@{{message.user.name}}</strong>
+                    <small class="pull-right text-muted"
+                        ><i class="fa fa-clock"></i> {{message.created|timesince}}
+                        ago</small
+                    >
+                    </div>
+                    <p class="mx-3">{{message.body}}</p>
+                </li>
+            {% else %}
+                <li class="right clearfix">
+                <div class="chat-body clearfix">
+                    <div class="header">
+                    <strong class="primary-font">{{message.user.first_name}}</strong>
+                    <small class="pull-right text-muted"
+                        ><i class="fa fa-clock"></i> {{message.created|timesince}}
+                        ago</small
+                    >
+                    </div>
+                    <p>{{message.body}}</p>
+                </div>
+                </li>
+            {% endif %} 
+        {% endfor %}
+        <div class="container p-4">
+            <form action="" method="post" class="form-group d-flex">
+                {% csrf_token%}
+                    <input type="text" name="body" class="form-control" placeholder="Write your message here..."/>&nbsp;<button type="submit" class="btn btn-success">Send</button>
+          </form>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+{% include "widgets/base_footer.html" %}
+    {% endblock %}
+

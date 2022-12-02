@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container pt-5">
+    <div class="d-block  p-5 bg-dark text-white text-center">
+        <h1>CREATE JOB</h1>
+    </div>
+        <form action="" method="post" class="pt-5" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{form.media}}
+            <div class="row">
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.title|as_crispy_field }}    
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.company|as_crispy_field }}
+                    <small class="text-muted">If company isn't listed, create company <a href="{% url 'createcompany' %}"> here.</a> </small>
+                  </div>
+                </div>
+            </div>
+            <hr>
+            {{ form.description|as_crispy_field }}
+            {{form.link|as_crispy_field}}
+            <small class="text-muted mx-4">It can be a website's career link or google form link.</small>
+            <hr>
+            <div class="row">
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.location|as_crispy_field }}
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.last_date|as_crispy_field }}
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.type|as_crispy_field }}
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.salary|as_crispy_field }}
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    {{ form.tags|as_crispy_field }}
+                  </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end px-5">
+            <button type="submit" class="btn-block btn-lg btn-success rounded">Submit</button>
+            </div>
+        </form>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Hire Them: Jobs {% endblock title%}
+{% load humanize %}
+{% block content %}
+<div class="container bg-success  bg-gradient">
+    <div class="d-block  p-5 bg-dark bg-gradient text-white text-center">
+        <strong class="display-4">List of Jobs</strong>
+    </div>
+</div>
+<section>
+    <div class="container mt-2 mb-2">
+        {% if request.user.is_staff %}
+        <div class="flex text-center">
+            <a href="{% url 'createjob' %}" class="btn btn-success">Create Job</a>
+            <a href="{% url 'createcompany' %}" class="btn btn-primary">Create Company</a>
+        </div>
+        {% endif %}
+        <div class="row m-5 p-1">
+        {% for job in jobs %}
+        <div class="card m-3" style="width: 18rem;">
+            {% if job.company.url %}
+            <img src="{{job.company.logo.url}}" class="card-img-top" alt="...">
+            {% else %}
+            <img src="/hirethemv2/static/images/defaults/jobs/default.png" class="card-img-top" alt="...">
+            {% endif %}
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+              <small class="text-muted">{{job.company}}</small>
+              {% if job.type == '1' %}
+              <span class="badge alert-primary">{{job.get_type_display}}</span>
+              {% elif job.type == '2' %}
+              <span class="badge alert-info">{{job.get_type_display}}</span>
+              {% else %}
+              <span class="badge alert-danger">{{job.get_type_display}}</span>
+              {% endif %}
+              </div>
+              <a href="{% url 'jobs-detail' job.pk %}" class="text-decoration-none text-dark"><h5 class="card-title mx-1 mt-2">{{job.title.capitalize}}</h5></a>
+              <div class="mt-3">
+                <p class="card-text mb-1"><i class="fa-sharp fa-solid fa-location-dot"></i> {{job.location}}</p>
+                 <p class="card-text mb-1"><i class="fa-solid fa-indian-rupee-sign"></i> {{job.salary}}/year</p>
+                 <p class="card-text m-2">
+                    {% for tag in job.tags.all %}
+                    <span class="badge alert-warning">{{tag}}</span>
+                    {% endfor %}
+                 </p>
+              </div>
+              <div class="d-flex justify-content-end">
+              <a href="{% url 'jobs-detail' job.pk %}" class="btn btn-primary mt-2">Details</a></div>
+            </div>
+          </div>
+        {% endfor %}
+                    
+    </div>
+        <div class="d-flex justify-content-center p-3">{% include "widgets/pagination.html" with page=jobs %}</div>
+    </div>
+</section>
+{% include "widgets/base_footer.html" %}
+{% endblock %}

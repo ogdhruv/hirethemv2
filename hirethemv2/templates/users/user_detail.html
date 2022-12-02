@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}User: {{ object.username }}{% endblock %}
+
+{% block content %}
+<section style="background-color: #eee;">
+  <div class="container py-5">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item" aria-current="page"><i class="fas fa-user-tie"></i> User Profile</li>
+          </ol>
+        </nav>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            {% if object.profile_picture %}
+            <img src="{{object.profile_picture.url}}" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            {% else %}
+            <img src="{% static 'images/defaults/profiles/default.jpg' %}" alt="avatar"
+            class="rounded-circle img-fluid" style="width: 150px;">
+            {% endif %}
+            <h5 class="my-3 text-capitalize">{{object.name}}</h5>
+            <p class="text-muted mb-3">{{object.bio}}</p>
+            <div class="d-flex justify-content-center mb-2">
+              {% if object.github %}
+              <a class="btn btn-success" href="https://{{object.github}}" role="button"><i class="fa-brands fa-github"></i> Github Link</a>
+              {% else %}
+              <a class="btn btn-success disabled" role="button"><i class="fa-brands fa-github"></i> No Github Link</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+              <li class="rounded-3 list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                <p class="mb-0">https://{{object.github}}</p>
+              </li>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><i class="fa-regular fa-user" style="color: rgb(82, 53, 15);"></i> &nbsp;&nbsp;Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0 text-capitalize">{{object.name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><i class="fa-solid fa-robot" style="color: #cd4df1;"></i> &nbsp;Username</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0" >{{object.username}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;&nbsp;Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{object.email}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><i class="fas fa-sort-numeric-up" style="color: #35b5be;"></i> &nbsp;Roll Number</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{object.roll_number}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><i class="fa-solid fa-phone" style="color: #1ccf1f;"></i> &nbsp;&nbsp;Mobile</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">coming soon...</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><i class="fa-solid fa-building" style="color: #1c8cb1;"></i> &nbsp;&nbsp;Department</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0 text-lowercase text-capitalize">{{object.get_department_display.lower}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><i class="fas fa-street-view" style="color: #b11c7d;"></i> &nbsp;Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{object.address|default_if_none:"Empty"}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="container">
+              {% if object == request.user %}
+              <!-- Action buttons -->
+                <div class="col-sm-12 mb-5">
+                  <a class="btn btn-primary" href="{% url 'users:update' %}" role="button"><i class="fas fa-user-circle"></i> Profile Update</a>
+                  <a class="btn btn-primary" href="{% url 'account_email' %}" role="button"><i class="fas fa-envelope-open"></i> E-Mail Update</a>
+                  <a class="btn btn-primary" href="{% url 'account_change_password' %}"><i class="fas fa-key"></i> Change Password</a>
+                  <!-- Your Stuff: Custom user template urls -->
+                </div>
+              
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- End Action buttons -->
+{% endif %}
+
+</div>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Hire Them: Blogs {% endblock title%}
+
+{% block content %}
+
+{% if blog %}
+
+    <div class="container">
+        <h1 class="text-center p-4">{{blog.title}}</h1>
+        <br>
+        <div class="">
+        <p class="">{{blog.body|safe}}</p>
+        </div>
+        {% if request.user == blog.author %}
+        <div class="flex space-between">
+            <a href="{% url 'update_blog' blog.pk %}" class="btn btn-info text-white">Update</a>
+            <a href="{% url 'delete_blog' blog.pk %}" class="btn btn-danger">Delete</a>
+            <br>
+            <div class="mt-4 pb-5"><p class="text-muted">Good to see the writer of this blog here!</p></div>
+        </div>
+        {% else %}
+        <div class="flex space-between">
+            <a href="{% url 'update_blog' blog.pk %}" class="btn btn-info text-white disabled">Update</a>
+            <a href="{% url 'delete_blog' blog.pk %}" class="btn btn-danger disabled">Delete</a>
+            <br>
+            <p class="mt-4 pb-5"> You are not the author of this page, that is why these options are not available!</p>
+        </div>
+        {% endif %}
+        
+    </div>
+{% endif %}
+{% include "widgets/base_footer.html" %}
+{% endblock %}

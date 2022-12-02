@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Hire Them: ChatRoom {% endblock title%}
+{% block content %}
+    <div class="d-flex justify-content-center mt-3 mb-3 bg-dark text-white p-5">
+        <h1 class="display-4 text-capitalize fw-bold">
+            <i class="fas fa-laptop-code"></i>
+            Welcome to Rooms!
+        </h1>
+    </div>
+    {% if request.user.is_staff %}
+        <div class="d-flex justify-content-center bg-dark p-4">
+            <a href="{% url 'createroom' %}" class="btn btn-primary"><small class="fw-bold"><i class="fas fa-plus"></i> CREATE ROOM</small></a>
+        </div>
+    {% endif %}
+    <div class="row">
+            {% for room in rooms %}
+                <div class="card m-5" style="width:40%;">
+                    {% if room.image %}
+                    <img src="{{ room.image.url }}"
+                         class="card-img-top mt-3"
+                         alt="Something wront with image"/>
+                    {% else %}
+                    <img src="/hirethemv2/static/images/defaults/rooms/default.webp"
+                         class="card-img-top mt-3"
+                         alt="Something wront with image"/>
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title fw-bold">{{ room.name }}</h4>
+                            <small class="mx-3 text-muted">{{ room.created|timesince }} ago</small>
+                        </div>
+                        {% if request.user.is_staff %}
+                            <div class="d-flex flex-column p-3">
+                                <a href="{% url 'updateroom' room.id %}" class="btn btn-success">Edit Room</a>
+                                <a href="{% url 'deleteroom' room.id %}" class="my-2 btn btn-danger">Delete Room</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <ul class="list-group list-group-light list-group-small">
+                        <li class="list-group-item px-4 p-2">
+                            <small class="fw-bold">{{ room.participants.all.count|default:0 }} Joined</small>
+                        </li>
+                        <li class="list-group-item px-4 p-2">
+                            Tags :
+                            {% for tag in room.tags.all %}<span class="badge alert-info m-2">{{ tag }}</span>{% endfor %}
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-end p-3">
+                        <a href="{% url 'room' room.pk %}" class="btn btn-success">Enter Room</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% include "widgets/base_footer.html" %}
+{% endblock %}

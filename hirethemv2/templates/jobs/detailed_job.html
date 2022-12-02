@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Hire Them: Jobs {% endblock title%}
+
+{% block content %}
+{% if job %}
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg mt-5">
+                <div class="d-flex p-2 justify-content-center">
+                    <p class="display-5 fw-bold text-uppercase"><i class="fa-solid fa-file-pen"></i> Description of Job</p>
+                </div>
+                <hr class="border border-dark border-2 opacity-75">
+                        <div class="d-inline-flex mt-5 mb-3 ">
+                            
+                            {% if job.company.logo %}
+                            <img class="rounded-circle" alt="64x64" src="{{job.company.logo.url}}" style="width: 70px; height: 70px;">
+                            {% else %}
+                            <img class="rounded-circle" alt="64x64" src="/hirethemv2/static/images/defaults/jobs/default.png" style="width: 70px; height: 70px;">
+                            {% endif%}
+                            
+                            <h1 class="display-6 fw-bold text-uppercase mt-2 mx-4">{{job.title}}</h1>
+                        </div>
+                        <div class="d-flex  justify-content-end">
+                        <a href="{% url 'updatejob' job.pk %}" class="btn btn-success">Update Job</a>
+                       </div>
+                    <p class="mt-0 mx-5 fst-italic">Posted by: <a href="{% url 'users:detail' job.host %}" class="fw-bold text-decoration-none text-dark text-capitalize">{{job.host}}</a></p>
+                <div class="mx-3 mt-4">
+                    {% if job.type == '1' %}
+                        <span class="badge alert-primary">{{job.get_type_display}}</span>
+                    {% elif job.type == '2' %}
+                        <span class="badge alert-info">{{job.get_type_display}}</span>
+                    {% else %}
+                        <span class="badge alert-danger">{{job.get_type_display}}</span>
+                    {% endif %}
+                    <div class="mx-4 mb-3">
+                        <p>{{job.description|safe}}</p>
+                    </div>
+                    <div class="mt-5 mb-5">
+                        <h6>Salary:</h6><p class="mb-1 mx-4"><i class="fa-solid fa-indian-rupee-sign"></i> {{job.salary}}/year</p>
+                        <h6 class="mt-4">Location:</h6><p class="mb-1 mx-4"><i class="fa-sharp fa-solid fa-location-dot"></i> {{job.location}}</p>
+                    </div>
+                    <div class="d-flex justify-content-around mt-5">
+                        <div>
+                            <h5><i class="fa-solid fa-clock"></i> Posted Date</h5>
+                            <p>{{job.created|date:"(l) d F Y"}}</p>
+                        </div>
+                        
+                        <div>
+                            <h5><i class="fa-solid fa-circle-exclamation"></i> Due Date</h5>
+                            <p class="text-danger">{{job.last_date|date:"(l) d F Y"}}</p> 
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <nobr><h5 class="">Tags : </h5>
+                        {% for tag in job.tags.all %}
+                            <span class="badge alert-primary">{{tag|title}}</span>
+                        {% endfor %}
+                        </nobr>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        
+                        {% if not job.is_past_due_date %}
+                        <a class="btn btn-success text-uppercase" href="{{job.link}}" target="_blank"><i class="fa-solid fa-check"></i> Apply form</a>
+                        {% else %}
+                        <a class="btn btn-danger text-uppercase disabled" href="{{job.link}}" target="_blank"><i class="fa-solid fa-check"></i> link expired</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container -->
+</div>
+</div>
+{% endif %}
+{% include "widgets/base_footer.html" %}
+{% endblock %}
