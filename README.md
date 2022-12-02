@@ -7,6 +7,12 @@
 
 </div>
 
+
+### 🧪 Trying the deployed version:
+- 🕵️ username: test  
+- 🔑 password: letmetest
+
+
 ##### _Made with :_
 
 [![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/) 
@@ -112,6 +118,12 @@ so we use an offline tool know as [**MailHog**](https://github.com/mailhog/MailH
     - Install latest MailHog release for your [OS](https://github.com/mailhog/MailHog) or [Ubuntu](https://github.com/mailhog/MailHog#debian--ubuntu-go--v118) <br/>
     - Run `$ ~/go/bin/MailHog` or else where you have go folder in the terminal.<br/>
     - Go to http://127.0.0.1:8025/ and check for emails when you create a user.<br/>
+
+## ☁️ Testing Live
+
+ 😶‍🌫️ Few things to keep in mind
+- Images may not appear on live becuase of disk space provided by render
+- I
 
 ## 📚 Refrences and Books :
 - [django-cookiecutter's Documentation](https://github.com/cookiecutter/cookiecutter-django)
