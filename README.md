@@ -122,7 +122,7 @@ so we use an offline tool know as [**MailHog**](https://github.com/mailhog/MailH
 
  😶‍🌫️ Few things to keep in mind
 - Images may not appear on live becuase of disk space provided by render
-- I
+- Web app is not mobile friendly at this time.
 
 ## 📚 Refrences and Books :
 - [django-cookiecutter's Documentation](https://github.com/cookiecutter/cookiecutter-django)
