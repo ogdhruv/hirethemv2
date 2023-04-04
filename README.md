@@ -8,10 +8,7 @@
 </div>
 
 
-### 🧪 Trying the deployed version:
-- 🕵️ username: tester
-- 🔑 password: letmetest
-
+### 🧪 Trying the deployed version: Register as a new user.
 <ins> <h3> 🚧 The application is not mobile responsive right now. 🚧</h3> </ins>
 
 ##### _Made with :_
